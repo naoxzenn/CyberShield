@@ -319,20 +319,32 @@ function reloadIcons() {
 ═══════════════════════════════════════════════ */
 (function buildThreats() {
   const grid = document.getElementById("threats-grid");
+
   THREATS.forEach((t, i) => {
     const card = document.createElement("article");
     card.className = "glass threat-card animate-on-scroll";
     card.style.transitionDelay = `${i * 0.07}s`;
+
     card.innerHTML = `
-      <div class="threat-icon" style="color:${t.color};border-color:${t.color};box-shadow:0 0 20px ${t.color}55;">
+      <div class="threat-icon"
+           style="color:${t.color};
+                  border-color:${t.color};
+                  box-shadow:0 0 20px ${t.color}55;">
         ${icon(t.icon, t.color, 24)}
       </div>
-      <h3 class="threat-name" style="color:${t.color}">${t.name}</h3>
-      <p class="threat-desc">${t.desc}</p>
-      <div class="threat-id">THREAT_ID :: 0x${(i + 1).toString(16).padStart(4, "0").toUpperCase()}</div>
+
+      <h3 class="threat-name" style="color:${t.color}">
+        ${t.name}
+      </h3>
+
+      <p class="threat-desc">
+        ${t.desc}
+      </p>
     `;
+
     grid.appendChild(card);
   });
+
   reloadIcons();
 })();
 
@@ -698,6 +710,18 @@ function reloadIcons() {
       reloadIcons();
     }, 1500);
   });
+
+  document
+    .getElementById("explore-threats-btn")
+    ?.addEventListener("click", () => {
+      scrollTo("informasi");
+    });
+
+  document
+    .getElementById("check-password-btn")
+    .addEventListener("click", () => {
+      scrollTo("tools");
+    });
 })();
 
 /* ═══════════════════════════════════════════════
