@@ -361,36 +361,63 @@ function reloadIcons() {
   const navIcon = document.getElementById("nav-icon");
   let menuOpen = false;
 
+  /* ── Build nav items ── */
   NAV_ITEMS.forEach((it) => {
-    desktop.innerHTML += `<li><button class="nav-btn" data-id="${it.id}" onclick="scrolltosection('${it.id}')">${it.label}</button></li>`;
-    mobile.innerHTML += `<li><button class="nav-mobile-btn" data-id="${it.id}" onclick="scrolltosection('${it.id}');closeMenu();">${it.label}</button></li>`;
+    // Desktop
+    const liD = document.createElement("li");
+    const btnD = document.createElement("button");
+    btnD.className = "nav-btn";
+    btnD.dataset.id = it.id;
+    btnD.textContent = it.label;
+    btnD.addEventListener("click", () => scrolltosection(it.id));
+    liD.appendChild(btnD);
+    desktop.appendChild(liD);
+
+    // Mobile
+    const liM = document.createElement("li");
+    const btnM = document.createElement("button");
+    btnM.className = "nav-mobile-btn";
+    btnM.dataset.id = it.id;
+    btnM.textContent = it.label;
+    btnM.addEventListener("click", () => {
+      scrolltosection(it.id);
+      closeMenu(); // tutup setelah dipencet
+    });
+    liM.appendChild(btnM);
+    mobile.appendChild(liM);
   });
+
+  /* ── Open / Close helpers ── */
+  function openMenu() {
+    menuOpen = true;
+    mobile.classList.add("open");
+    toggle.classList.add("open");
+    navIcon.setAttribute("data-lucide", "x");
+    reloadIcons();
+  }
 
   function closeMenu() {
     menuOpen = false;
     mobile.classList.remove("open");
     toggle.classList.remove("open");
+    navIcon.setAttribute("data-lucide", "menu");
+    reloadIcons();
   }
 
-  toggle.addEventListener("click", () => {
-    menuOpen = !menuOpen;
-    mobile.classList.toggle("open", menuOpen);
-    toggle.classList.toggle("open", menuOpen);
-    // Ganti icon dengan animasi
-    navIcon.setAttribute("data-lucide", menuOpen ? "x" : "menu");
-    reloadIcons();
+  /* ── Hamburger toggle ── */
+  toggle.addEventListener("click", (e) => {
+    e.stopPropagation(); // jangan bubble ke document
+    menuOpen ? closeMenu() : openMenu();
   });
 
-  // Tutup menu saat klik di luar
+  /* ── Klik di luar → tutup ── */
   document.addEventListener("click", (e) => {
-    if (menuOpen && !toggle.contains(e.target) && !mobile.contains(e.target)) {
+    if (menuOpen && !mobile.contains(e.target) && !toggle.contains(e.target)) {
       closeMenu();
-      navIcon.setAttribute("data-lucide", "menu");
-      reloadIcons();
     }
   });
 
-  // Scroll spy
+  /* ── Scroll spy ── */
   window.addEventListener(
     "scroll",
     () => {
