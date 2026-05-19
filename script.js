@@ -363,14 +363,31 @@ function reloadIcons() {
 
   NAV_ITEMS.forEach((it) => {
     desktop.innerHTML += `<li><button class="nav-btn" data-id="${it.id}" onclick="scrolltosection('${it.id}')">${it.label}</button></li>`;
-    mobile.innerHTML += `<li><button class="nav-mobile-btn" data-id="${it.id}" onclick="scrolltosection('${it.id}');document.getElementById('nav-mobile').classList.add('hidden');menuOpen=false;">${it.label}</button></li>`;
+    mobile.innerHTML += `<li><button class="nav-mobile-btn" data-id="${it.id}" onclick="scrolltosection('${it.id}');closeMenu();">${it.label}</button></li>`;
   });
+
+  function closeMenu() {
+    menuOpen = false;
+    mobile.classList.remove("open");
+    toggle.classList.remove("open");
+  }
 
   toggle.addEventListener("click", () => {
     menuOpen = !menuOpen;
-    mobile.classList.toggle("hidden", !menuOpen);
+    mobile.classList.toggle("open", menuOpen);
+    toggle.classList.toggle("open", menuOpen);
+    // Ganti icon dengan animasi
     navIcon.setAttribute("data-lucide", menuOpen ? "x" : "menu");
     reloadIcons();
+  });
+
+  // Tutup menu saat klik di luar
+  document.addEventListener("click", (e) => {
+    if (menuOpen && !toggle.contains(e.target) && !mobile.contains(e.target)) {
+      closeMenu();
+      navIcon.setAttribute("data-lucide", "menu");
+      reloadIcons();
+    }
   });
 
   // Scroll spy
@@ -680,7 +697,7 @@ function reloadIcons() {
   let showPw = false;
 
   const CHECKS = [
-    { key: "length", label: "Minimal 12 Karakter" },
+    { key: "length", label: "Minimal 8 Karakter" },
     { key: "upper", label: "Huruf Kapital(A-Z)" },
     { key: "lower", label: "Huruf Kecil(a-z)" },
     { key: "number", label: "Nomor" },
@@ -700,14 +717,14 @@ function reloadIcons() {
 
   function scorePassword(pw) {
     const checks = {
-      length: pw.length >= 12,
+      length: pw.length >= 8,
       upper: /[A-Z]/.test(pw),
       lower: /[a-z]/.test(pw),
       number: /\d/.test(pw),
       symbol: /[^A-Za-z0-9]/.test(pw),
     };
     let score = Object.values(checks).filter(Boolean).length;
-    if (pw.length >= 16) score += 0.5;
+    if (pw.length >= 12) score += 0.5;
     return { score, checks };
   }
 
