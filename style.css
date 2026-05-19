@@ -428,6 +428,13 @@ ol {
 #terminal-intro .t-line {
   margin-bottom: 2px;
 }
+
+/* Hapus semua shadow di dalam terminal intro — teks polos saja */
+#terminal-intro .neon-text-green,
+#terminal-intro .neon-text-red,
+#terminal-intro .neon-text-cyan {
+  text-shadow: none;
+}
 #terminal-intro.fade-out {
   opacity: 0;
   pointer-events: none;
@@ -802,30 +809,24 @@ section {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 0.5rem 1rem;
+  padding: 1.5rem;
   z-index: 2;
-  overflow: hidden;
 }
-.monitor-content .alert-icon,
-.monitor-content svg.alert-icon {
-  /* Ukuran responsif berdasarkan lebar monitor */
-  width: clamp(28px, 6vw, 52px);
-  height: clamp(28px, 6vw, 52px);
-  min-width: 28px;
-  min-height: 28px;
-  flex-shrink: 0;
+.monitor-content .alert-icon {
+  width: 64px;
+  height: 64px;
 }
 .monitor-content .breached {
   font-family: var(--font-display);
-  font-size: clamp(0.85rem, 3.5vw, 1.8rem);
+  font-size: clamp(1.2rem, 4vw, 1.8rem);
   font-weight: 900;
-  margin-top: 0.4rem;
+  margin-top: 1rem;
 }
 .monitor-content .mono-info {
-  margin-top: 0.4rem;
+  margin-top: 0.75rem;
   font-family: var(--font-mono);
-  font-size: clamp(0.55rem, 1.4vw, 0.75rem);
-  line-height: 1.6;
+  font-size: 0.75rem;
+  line-height: 1.7;
 }
 .monitor-overlay {
   position: absolute;
@@ -2113,5 +2114,26 @@ body {
     font-size: 0.65rem;
     padding: 2px 6px;
     flex-shrink: 0;
+  }
+}
+
+/* ─── Fix alert icon monitor ─── */
+.monitor-content .alert-icon,
+.monitor-content svg.alert-icon {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  flex-shrink: 0;
+}
+
+/* Di desktop tetap sedikit lebih besar */
+@media (min-width: 640px) {
+  .monitor-content .alert-icon,
+  .monitor-content svg.alert-icon {
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    min-height: 56px;
   }
 }
