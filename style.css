@@ -802,24 +802,30 @@ section {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 1.5rem;
+  padding: 0.5rem 1rem;
   z-index: 2;
+  overflow: hidden;
 }
-.monitor-content .alert-icon {
-  width: 64px;
-  height: 64px;
+.monitor-content .alert-icon,
+.monitor-content svg.alert-icon {
+  /* Ukuran responsif berdasarkan lebar monitor */
+  width: clamp(28px, 6vw, 52px);
+  height: clamp(28px, 6vw, 52px);
+  min-width: 28px;
+  min-height: 28px;
+  flex-shrink: 0;
 }
 .monitor-content .breached {
   font-family: var(--font-display);
-  font-size: clamp(1.2rem, 4vw, 1.8rem);
+  font-size: clamp(0.85rem, 3.5vw, 1.8rem);
   font-weight: 900;
-  margin-top: 1rem;
+  margin-top: 0.4rem;
 }
 .monitor-content .mono-info {
-  margin-top: 0.75rem;
+  margin-top: 0.4rem;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  line-height: 1.7;
+  font-size: clamp(0.55rem, 1.4vw, 0.75rem);
+  line-height: 1.6;
 }
 .monitor-overlay {
   position: absolute;

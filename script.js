@@ -358,13 +358,13 @@ function reloadIcons() {
 ═══════════════════════════════════════════════ */
 (function buildNav() {
   const desktop = document.getElementById("nav-desktop");
-  const mobile  = document.getElementById("nav-mobile");
-  const toggle  = document.getElementById("nav-toggle");
+  const mobile = document.getElementById("nav-mobile");
+  const toggle = document.getElementById("nav-toggle");
   const navIconSvg = document.getElementById("nav-icon-svg");
   let menuOpen = false;
 
   const SVG_MENU = `<line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>`;
-  const SVG_X    = `<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>`;
+  const SVG_X = `<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>`;
 
   NAV_ITEMS.forEach((it) => {
     const liD = document.createElement("li");
@@ -415,22 +415,26 @@ function reloadIcons() {
   });
 
   let ticking = false;
-  window.addEventListener("scroll", () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        let curr = "home";
-        NAV_ITEMS.forEach((it) => {
-          const el = document.getElementById(it.id);
-          if (el && el.getBoundingClientRect().top <= 120) curr = it.id;
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          let curr = "home";
+          NAV_ITEMS.forEach((it) => {
+            const el = document.getElementById(it.id);
+            if (el && el.getBoundingClientRect().top <= 120) curr = it.id;
+          });
+          document.querySelectorAll("[data-id]").forEach((btn) => {
+            btn.classList.toggle("active", btn.dataset.id === curr);
+          });
+          ticking = false;
         });
-        document.querySelectorAll("[data-id]").forEach((btn) => {
-          btn.classList.toggle("active", btn.dataset.id === curr);
-        });
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }, { passive: true });
+        ticking = true;
+      }
+    },
+    { passive: true },
+  );
 })();
 
 /* ═══════════════════════════════════════════════
@@ -491,14 +495,14 @@ function reloadIcons() {
   function stageHTML(key, color) {
     if (key === "phishing")
       return `<div class="stage-row">
-      ${node("mail", "Email Palsu", color)}${flowPipe(color)}
+      ${node("mail", "Email", color)}${flowPipe(color)}
       ${node("user", "Korban", "var(--neon-cyan)")}${flowPipe("var(--alert-red)", 0.3)}
       ${node("user-x", "Peretas", "var(--alert-red)")}
     </div>`;
 
     if (key === "malware")
       return `<div class="stage-row">
-      ${node("download", "Mengunduh dan Instal", "var(--neon-cyan)")}${flowPipe(color)}
+      ${node("download", "Mengunduh", "var(--neon-cyan)")}${flowPipe(color)}
       ${node("bug", "Virus", color)}${flowPipe(color, 0.4)}
       ${node("alert-triangle", "Sistem Rusak", "var(--alert-red)")}
     </div>`;
@@ -566,7 +570,6 @@ function reloadIcons() {
       ${node("user", "Pengguna", "var(--neon-cyan)")}${flowPipe(color)}
       <div class="mitm-interceptor">
         ${node("user-x", "Peretas", "var(--alert-red)")}
-        ${icon("lock", "var(--alert-red)", 16)}
       </div>
       ${flowPipe(color, 0.3)}
       ${node("server", "Server", color)}
@@ -781,7 +784,7 @@ function reloadIcons() {
   });
 
   const EYE_OPEN = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
-  const EYE_OFF  = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`;
+  const EYE_OFF = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>`;
 
   toggle.addEventListener("click", () => {
     showPw = !showPw;
@@ -859,14 +862,18 @@ function reloadIcons() {
   document.getElementById("gen-regen").addEventListener("click", regen);
   document.getElementById("gen-btn").addEventListener("click", regen);
 
-  const COPY_SVG  = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>`;
+  const COPY_SVG = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>`;
   const CHECK_SVG = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00ff9c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
 
   document.getElementById("gen-copy").addEventListener("click", async () => {
-    await navigator.clipboard.writeText(document.getElementById("gen-value").textContent);
+    await navigator.clipboard.writeText(
+      document.getElementById("gen-value").textContent,
+    );
     const btn = document.getElementById("gen-copy");
     btn.innerHTML = CHECK_SVG;
-    setTimeout(() => { btn.innerHTML = COPY_SVG; }, 1500);
+    setTimeout(() => {
+      btn.innerHTML = COPY_SVG;
+    }, 1500);
   });
 
   document
@@ -912,5 +919,7 @@ function initLucide() {
   }
 }
 initLucide();
-document.querySelector('script[src*="lucide"]')?.addEventListener("load", initLucide);
+document
+  .querySelector('script[src*="lucide"]')
+  ?.addEventListener("load", initLucide);
 window.addEventListener("load", initLucide);
