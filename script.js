@@ -1,6 +1,4 @@
-/* ═══════════════════════════════════════════════
-   DATA
-═══════════════════════════════════════════════ */
+/* === Definisi Data Statis Antarmuka === */
 const NAV_ITEMS = [
   { id: "home", label: "Home" },
   { id: "informasi", label: "Informasi" },
@@ -176,7 +174,7 @@ const PREVENTION_TIPS = [
 const AWARENESS_ITEMS = [
   {
     icon: "brain",
-    title: "Berpikir Sebelum Posting",
+    title: "Berpikir Before Posting",
     color: "var(--neon-green)",
     tag: "THINK FIRST",
     desc: "Konten yang kamu unggah bisa bertahan selamanya di internet. Tanyakan pada diri sendiri: apakah ini bisa merugikanmu 5 tahun ke depan?",
@@ -257,9 +255,7 @@ const TERMINAL_LINES = [
   "$ launching CyberShield...",
 ];
 
-/* ═══════════════════════════════════════════════
-   HELPERS
-═══════════════════════════════════════════════ */
+/* === Fungsi Helper / Utilitas === */
 function scrolltosection(id) {
   document
     .getElementById(id)
@@ -274,9 +270,7 @@ function reloadIcons() {
   }
 }
 
-/* ═══════════════════════════════════════════════
-   PARTICLES
-═══════════════════════════════════════════════ */
+/* === Fungsi Generator Efek Efek Partikel Latar Belakang === */
 (function buildParticles() {
   const container = document.getElementById("particles");
   const colors = [
@@ -297,9 +291,7 @@ function reloadIcons() {
   }
 })();
 
-/* ═══════════════════════════════════════════════
-   TERMINAL INTRO
-═══════════════════════════════════════════════ */
+/* === Logika Simulasi Pengetikan Terminal Intro === */
 (function terminalIntro() {
   const container = document.getElementById("terminal-lines");
   const intro = document.getElementById("terminal-intro");
@@ -353,9 +345,7 @@ function reloadIcons() {
   tick();
 })();
 
-/* ═══════════════════════════════════════════════
-   NAVBAR
-═══════════════════════════════════════════════ */
+/* === Logika Pembuat & Pengendali Navigasi Menu (Navbar) === */
 (function buildNav() {
   const desktop = document.getElementById("nav-desktop");
   const mobile = document.getElementById("nav-mobile");
@@ -437,9 +427,7 @@ function reloadIcons() {
   );
 })();
 
-/* ═══════════════════════════════════════════════
-   THREATS GRID
-═══════════════════════════════════════════════ */
+/* === Logika Perender Konten Ancaman (Threats Grid) === */
 (function buildThreats() {
   const grid = document.getElementById("threats-grid");
 
@@ -471,9 +459,7 @@ function reloadIcons() {
   reloadIcons();
 })();
 
-/* ═══════════════════════════════════════════════
-   ATTACK VISUALIZER
-═══════════════════════════════════════════════ */
+/* === Logika Engine Visualizer Animasi Serangan Jaringan === */
 (function buildAttackVisualizer() {
   const btnContainer = document.getElementById("attack-buttons");
   let activeKey = "phishing";
@@ -565,7 +551,6 @@ function reloadIcons() {
       </div>`;
     }
 
-    // mitm
     return `<div class="stage-row">
       ${node("user", "Pengguna", "var(--neon-cyan)")}${flowPipe(color)}
       <div class="mitm-interceptor">
@@ -580,7 +565,6 @@ function reloadIcons() {
     activeKey = key;
     const att = ATTACKS.find((a) => a.key === key);
 
-    // Update buttons
     document.querySelectorAll(".attack-btn").forEach((b) => {
       const isActive = b.dataset.key === key;
       b.classList.toggle("active", isActive);
@@ -611,7 +595,6 @@ function reloadIcons() {
     reloadIcons();
   }
 
-  // Build buttons
   ATTACKS.forEach((a) => {
     const btn = document.createElement("button");
     btn.className = "attack-btn";
@@ -631,9 +614,7 @@ function reloadIcons() {
   renderAttack("phishing");
 })();
 
-/* ═══════════════════════════════════════════════
-   TIMELINE
-═══════════════════════════════════════════════ */
+/* === Logika Perender Komponen Komponen Langkah Mitigasi (Timeline) === */
 (function buildTimeline() {
   const container = document.getElementById("timeline-items");
   TIMELINE_STEPS.forEach((s, i) => {
@@ -654,9 +635,7 @@ function reloadIcons() {
   reloadIcons();
 })();
 
-/* ═══════════════════════════════════════════════
-   PREVENTION GRID
-═══════════════════════════════════════════════ */
+/* === Logika Perender Tips Pencegahan (Prevention Grid) === */
 (function buildPrevention() {
   const grid = document.getElementById("prevention-grid");
   PREVENTION_TIPS.forEach((t, i) => {
@@ -671,9 +650,7 @@ function reloadIcons() {
   reloadIcons();
 })();
 
-/* ═══════════════════════════════════════════════
-   DIGITAL AWARENESS GRID
-═══════════════════════════════════════════════ */
+/* === Logika Perender Konten Edukasi Kesadaran Digital === */
 (function buildAwareness() {
   const grid = document.getElementById("awareness-grid");
   if (!grid) return;
@@ -713,11 +690,8 @@ function reloadIcons() {
   reloadIcons();
 })();
 
-/* ═══════════════════════════════════════════════
-   PASSWORD TOOLS
-═══════════════════════════════════════════════ */
+/* === Logika Modul Toolkit Kredensial & Password (Checker & Generator) === */
 (function buildTools() {
-  // Strength Checker
   const input = document.getElementById("pw-input");
   const toggle = document.getElementById("pw-toggle");
   const strengthLabel = document.getElementById("strength-label");
@@ -792,7 +766,6 @@ function reloadIcons() {
     toggle.innerHTML = showPw ? EYE_OFF : EYE_OPEN;
   });
 
-  // Generator
   let genLen = 16,
     useUpper = true,
     useNum = true,
@@ -889,14 +862,10 @@ function reloadIcons() {
     });
 })();
 
-/* ═══════════════════════════════════════════════
-   FOOTER YEAR
-═══════════════════════════════════════════════ */
+/* === Sinkronisasi Tahun Hak Cipta di Footer === */
 document.getElementById("year").textContent = new Date().getFullYear();
 
-/* ═══════════════════════════════════════════════
-   SCROLL ANIMATIONS (IntersectionObserver)
-═══════════════════════════════════════════════ */
+/* === Pengendali Efek Transisi Animasi Timbul (Intersection Observer) === */
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((e) => {
@@ -910,9 +879,7 @@ document
   .querySelectorAll(".animate-on-scroll,.animate-left")
   .forEach((el) => observer.observe(el));
 
-/* ═══════════════════════════════════════════════
-   INIT ICONS
-═══════════════════════════════════════════════ */
+/* === Manajemen Muat Awal & Inisialisasi Paket Ikon Lucide === */
 function initLucide() {
   if (typeof lucide !== "undefined") {
     lucide.createIcons();
